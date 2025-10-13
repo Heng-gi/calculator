@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/calculator.dir/src/main.cpp.o CMakeFiles/calculator.dir/src/sqlist.cpp.o CMakeFiles/calculator.dir/src/linklist.cpp.o CMakeFiles/calculator.dir/src/expression.cpp.o CMakeFiles/calculator.dir/src/menu.cpp.o CMakeFiles/calculator.dir/src/utils.cpp.o -o calculator 
