@@ -2,6 +2,7 @@
 #include "../include/sqlist.h"
 #include "../include/linklist.h"
 #include "../include/expression.h"
+#include "../include/func.h"
 #include <cstdio>
 #include <cstdlib>
 
@@ -12,6 +13,9 @@ int main() {
     int isSqListInit = 0, isVecAInit = 0, isVecBInit = 0;
     int isPolySqAInit = 0, isPolySqBInit = 0;
     int isPolyLinkAInit = 0, isPolyLinkBInit = 0;
+
+    FuncList funclist;
+    InitFuncList(funclist);
 
     do {
         printMainMenu();
@@ -293,6 +297,20 @@ int main() {
                 DealExpression();
                 break;
 
+            case 6: {
+                getchar();
+                printf("\n===== 函数操作模式 =====\n");
+                printf("支持以下指令：\n");
+                printf("  - 定义函数：DEF 函数名(参数)=表达式\n");
+                printf("  - 运行函数：RUN 函数名(参数值)\n");
+                printf("  - 查看函数：LIST\n");
+                printf("  - 清除函数：CLEAR\n");
+                printf("  - 退出模式：EXIT\n");
+                printf("========================\n");
+                printf("\n请输入指令: \n");
+                DealFunc(funclist);
+            }
+
             case 0:
                 printf("感谢使用，再见！\n");
                 if (isSqListInit) Destroylist_sq(sqList);
@@ -302,6 +320,7 @@ int main() {
                 if (isPolySqBInit) Destroylist_sq(polySqB);
                 if (isPolyLinkAInit) Destroy_LinkList(polyLinkA);
                 if (isPolyLinkBInit) Destroy_LinkList(polyLinkB);
+                DestoryFunclist(funclist);
                 break;
 
             default:

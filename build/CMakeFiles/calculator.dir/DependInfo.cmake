@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/d/CS/Data-Structure/calculator/src/expression.cpp" "CMakeFiles/calculator.dir/src/expression.cpp.o" "gcc" "CMakeFiles/calculator.dir/src/expression.cpp.o.d"
+  "/mnt/d/CS/Data-Structure/calculator/src/func.cpp" "CMakeFiles/calculator.dir/src/func.cpp.o" "gcc" "CMakeFiles/calculator.dir/src/func.cpp.o.d"
   "/mnt/d/CS/Data-Structure/calculator/src/linklist.cpp" "CMakeFiles/calculator.dir/src/linklist.cpp.o" "gcc" "CMakeFiles/calculator.dir/src/linklist.cpp.o.d"
   "/mnt/d/CS/Data-Structure/calculator/src/main.cpp" "CMakeFiles/calculator.dir/src/main.cpp.o" "gcc" "CMakeFiles/calculator.dir/src/main.cpp.o.d"
   "/mnt/d/CS/Data-Structure/calculator/src/menu.cpp" "CMakeFiles/calculator.dir/src/menu.cpp.o" "gcc" "CMakeFiles/calculator.dir/src/menu.cpp.o.d"

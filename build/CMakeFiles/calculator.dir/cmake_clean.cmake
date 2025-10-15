@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/calculator.dir/src/expression.cpp.o"
   "CMakeFiles/calculator.dir/src/expression.cpp.o.d"
+  "CMakeFiles/calculator.dir/src/func.cpp.o"
+  "CMakeFiles/calculator.dir/src/func.cpp.o.d"
   "CMakeFiles/calculator.dir/src/linklist.cpp.o"
   "CMakeFiles/calculator.dir/src/linklist.cpp.o.d"
   "CMakeFiles/calculator.dir/src/main.cpp.o"

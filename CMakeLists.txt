@@ -13,4 +13,5 @@ add_executable(calculator
     src/expression.cpp
     src/menu.cpp
     src/utils.cpp
+    src/func.cpp
 )

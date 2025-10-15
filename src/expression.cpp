@@ -72,13 +72,14 @@ double EvaluateExpression(const string &line){
     for(int i=0;i<line.size();i++){
         char c=line[i];
         if(c!='#' || OPTR.GetTop()!='#'){
-            if(c=='-' && possibleminus){
-                currentnumber+=c;
+            if((c=='-' || c=='+') && possibleminus){
+                OPND.Push(0);
+                OPTR.Push(c);
                 possibleminus=false;
                 continue;
             }
             possibleminus=false;
-            if(isdigit(c) || c=='.'){
+            if(isdigit(c) || c=='.' || ((c=='e' || c=='E') && (!currentnumber.empty()))){
                 currentnumber+=c;
                 continue;
             }
@@ -115,33 +116,83 @@ double EvaluateExpression(const string &line){
     return result;
 }
 
-void DealExpression() {
-    cout << "请输入表达式，以#结尾，中间不要输入空格，不要省略乘号:" << endl;
-    string line;
-    cin >> line;
-    cout << "表达式中是否包含变量？y/n" << endl;
-    char need_variable;
-    cin >> need_variable;
-    if (need_variable == 'n') {
-        EvaluateExpression(line);
-    } else {
-        cout << "请输入变量名:" << endl;
-        string variable_name;
-        cin >> variable_name;
-        while (1) {
-            cout << "请输入变量" << variable_name << "的值:" << endl;
-            string variable_val;
-            cin >> variable_val;
-            string variable_val_with_paren ="(" + variable_val + ")";
-            string replaced = replaceAll(line, variable_name, variable_val_with_paren);
-            EvaluateExpression(replaced);
-            cout << "是否要继续改变变量" << variable_name << "的值？y/n:" << endl;
-            char continue_express;
-            cin >> continue_express;
-            if (continue_express == 'n') {
-                cout << "已退出该表达式的求值" << endl;
-                break;
+string ReplaceVariable(string line, VarList &varlist){
+    string str=line;
+    for(int i=0;i<line.size();i++){
+        char c=line[i];
+        string variable;
+        if(isspace(c)) continue;
+        if ((c=='e'||c=='E') && i>0 && i<(line.size()-1) && isdigit(line[i-1]))
+            continue;
+        else if(isalpha(c)||c=='_'){
+            variable+=c;
+            c=line[++i];
+            while(isalpha(c)||isdigit(c)||c=='_'){
+                variable+=c;
+                c=line[++i];
             }
+            i--;
+            bool var_duplicated=false;
+            for(int i=0;i<varlist.len;i++){
+                if(variable==varlist.item[i].var){
+                    variable.clear();
+                    var_duplicated=true;
+                    break;
+                }
+            }
+            if(var_duplicated){
+                continue;
+            }
+            else {
+                varlist.item[varlist.len].var=variable;
+                cout<<"检测到变量"<<variable<<",请输入该变量的值："<<endl;
+                cin>>varlist.item[varlist.len].val;
+                varlist.len++;
+                variable.clear();
+            } 
         }
     }
+    for(int i=0;i<varlist.len;i++){
+        string variable_val_with_paren ="(" + to_string(varlist.item[i].val) + ")";
+        str=replaceAll(str, varlist.item[i].var, variable_val_with_paren);
+    }
+    return str;
+}
+
+
+void DealExpression() {
+    VarList varlist;
+    if(!(varlist.item=(VarElemType)malloc(10*sizeof(VarElem)))){
+        printf("内存分配失败\n");
+        return;
+    }
+    varlist.len=0;
+    cout << "请输入表达式，不要省略乘号:" << endl;
+    string line;
+    cin >> line;
+    if(!line.empty() && (line.back()==';')) line.pop_back();
+    line+='#';
+    string replaced=line;
+    replaced=ReplaceVariable(replaced, varlist);
+    EvaluateExpression(replaced);
+    while(1){
+        cout << "是否要继续改变变量的值？y/n:" << endl;
+        char continue_express;
+        cin >> continue_express;
+        replaced=line;
+        if(continue_express=='y'){
+            for(int i=0;i<varlist.len;i++){
+                cout<<"请输入变量"<<varlist.item[i].var<<"的修改值："<<endl;
+                cin>>varlist.item[i].val;
+            }
+            replaced=ReplaceVariable(replaced, varlist);
+            EvaluateExpression(replaced);
+        }
+        else{
+            cout << "已退出该表达式的求值" << endl;
+            break;
+        }
+    }
+    free(varlist.item);
+    varlist.len=0;
 }

@@ -1,5 +1,5 @@
-CMakeFiles/calculator.dir/src/expression.cpp.o: \
- /mnt/d/CS/Data-Structure/calculator/src/expression.cpp \
+CMakeFiles/calculator.dir/src/func.cpp.o: \
+ /mnt/d/CS/Data-Structure/calculator/src/func.cpp \
  /usr/include/stdc-predef.h \
  /mnt/d/CS/Data-Structure/calculator/src/../include/expression.h \
  /usr/include/c++/13/string /usr/include/c++/13/bits/requires_hosted.h \
@@ -155,6 +155,8 @@ CMakeFiles/calculator.dir/src/expression.cpp.o: \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
  /usr/include/c++/13/bits/istream.tcc \
  /mnt/d/CS/Data-Structure/calculator/src/../include/utils.h \
+ /mnt/d/CS/Data-Structure/calculator/src/../include/func.h \
+ /mnt/d/CS/Data-Structure/calculator/src/../include/linklist.h \
  /usr/include/c++/13/cmath /usr/include/math.h \
  /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -177,4 +179,13 @@ CMakeFiles/calculator.dir/src/expression.cpp.o: \
  /usr/include/c++/13/tr1/modified_bessel_func.tcc \
  /usr/include/c++/13/tr1/poly_hermite.tcc \
  /usr/include/c++/13/tr1/poly_laguerre.tcc \
- /usr/include/c++/13/tr1/riemann_zeta.tcc
+ /usr/include/c++/13/tr1/riemann_zeta.tcc /usr/include/c++/13/list \
+ /usr/include/c++/13/bits/stl_list.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/bits/list.tcc /usr/include/c++/13/vector \
+ /usr/include/c++/13/bits/stl_uninitialized.h \
+ /usr/include/c++/13/bits/stl_vector.h \
+ /usr/include/c++/13/bits/stl_bvector.h \
+ /usr/include/c++/13/bits/vector.tcc \
+ /mnt/d/CS/Data-Structure/calculator/src/../include/linklist.h

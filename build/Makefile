@@ -153,6 +153,30 @@ src/expression.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/expression.cpp.s
 .PHONY : src/expression.cpp.s
 
+src/func.o: src/func.cpp.o
+.PHONY : src/func.o
+
+# target to build an object file
+src/func.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/func.cpp.o
+.PHONY : src/func.cpp.o
+
+src/func.i: src/func.cpp.i
+.PHONY : src/func.i
+
+# target to preprocess a source file
+src/func.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/func.cpp.i
+.PHONY : src/func.cpp.i
+
+src/func.s: src/func.cpp.s
+.PHONY : src/func.s
+
+# target to generate assembly for a file
+src/func.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/func.cpp.s
+.PHONY : src/func.cpp.s
+
 src/linklist.o: src/linklist.cpp.o
 .PHONY : src/linklist.o
 
@@ -285,6 +309,9 @@ help:
 	@echo "... src/expression.o"
 	@echo "... src/expression.i"
 	@echo "... src/expression.s"
+	@echo "... src/func.o"
+	@echo "... src/func.i"
+	@echo "... src/func.s"
 	@echo "... src/linklist.o"
 	@echo "... src/linklist.i"
 	@echo "... src/linklist.s"

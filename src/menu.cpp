@@ -11,6 +11,7 @@ void printMainMenu() {
     printf("3. 多项式计算（顺序表）\n");
     printf("4. 多项式计算（链表）\n");
     printf("5. 四则运算表达式求值\n");
+    printf("6. 函数定义与运行\n");
     printf("0. 退出程序\n");
     printf("========================\n");
     printf("请选择功能: ");
