@@ -124,9 +124,18 @@ Status SplitLine(const string &line, vector <string> &result){
 //划分变量或变量取值
 void SplitVar(string vargroup, vector <string> &var){
     string current;
+    int paren_num=0;
     for(char c:vargroup){
         if(isspace(c)) continue;
-        if(c==','){
+        if(c=='('){
+            paren_num++;
+            current+=c;
+        }
+        else if(c==')'){
+            paren_num--;
+            current+=c;
+        }
+        else if(c==',' && paren_num==0){
             if(!current.empty()){
                 var.push_back(current);
                 current.clear();
@@ -175,17 +184,26 @@ Status ReplaceFunc(string &expression, const vector <string> &var, const FuncLis
                 if(b){ //当前funcname存在于funclist中
                     string vargroup;
                     c=expression[++i];
-                    while (c!=')'){
+                    int paren_num=1;
+                    while (i<expression.size()){
                         vargroup+=c;
-                        c=expression[++i];
+                        if(c=='('){
+                            paren_num++;
+                        }
+                        else if(c==')'){
+                            paren_num--;
+                        }
+                        if(!paren_num) break;
+                        else c=expression[++i];
                     }
+                    if(!vargroup.empty() && vargroup.back()==')') vargroup.pop_back();
                     original.push_back(current+'('+vargroup+')');
                     current.clear();
                     vector <string> replace;
                     SplitVar(vargroup, replace);
                     string funcexpression=funclist.item[index].expression;
                     ReplaceValue(funcexpression, funclist.item[index].variable, replace);
-                    replaced.push_back(funcexpression);
+                    replaced.push_back('('+funcexpression+')');
                 }
                 else{
                     cout<<"错误：当前函数"<<current<<"未定义"<<endl;
@@ -195,7 +213,7 @@ Status ReplaceFunc(string &expression, const vector <string> &var, const FuncLis
             }
             else{
                 i--;
-                bool varhave;
+                bool varhave=false;
                 for(int j=0;j<var.size();j++){
                     if(current==var[j]){
                         varhave=true;
@@ -236,6 +254,18 @@ void printAllFunctions(const FuncList &funclist) {
     printf("==========================\n");
 }
 
+Status ReplaceFuncStop(const string &str){
+    bool havealp=true;
+    for(int i=0;i<str.size();i++){
+        if ((str[i]=='e'||str[i]=='E') && i>0 && i<(str.size()-1) && isdigit(str[i-1])) continue;
+        if (isalpha(str[i])||str[i]=='_'){
+            havealp=false;
+            break;
+        }
+    }
+    return havealp;
+}
+
 void DealFunc(FuncList &funclist){
     while(1){
         string line;
@@ -261,10 +291,6 @@ void DealFunc(FuncList &funclist){
         else if(instruct>0){  //def
             vector <string> var;
             SplitVar(split_result[2],var);
-            int t=ReplaceFunc(split_result[3],var,funclist);
-            if(t==ERROR){
-                continue;
-            }
             bool func_exist;
             int index=LocateFunc(funclist, split_result[1], func_exist);
             if(func_exist){
@@ -277,10 +303,18 @@ void DealFunc(FuncList &funclist){
         }
         else{
             vector <string> var;
-            int t=ReplaceFunc(split_result[1],var,funclist);
-            if(t==ERROR){
-                continue;
+            bool undefined_var=false;
+            while(1){
+                int t=ReplaceFunc(split_result[1],var,funclist);
+                if(t==ERROR){
+                    undefined_var=true;
+                    break;
+                }
+                if(ReplaceFuncStop(split_result[1])){
+                    break;
+                }
             }
+            if(undefined_var) continue;
             EvaluateExpression(split_result[1]);
         }
     }

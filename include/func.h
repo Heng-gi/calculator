@@ -46,6 +46,7 @@ void ReplaceValue(string &expression, const vector <string> &var, const vector <
 //若expression有未知变量，则返回ERROR
 Status ReplaceFunc(string &expression, const vector <string> &var, const FuncList &funclist);
 void printAllFunctions(const FuncList &funclist);
+Status ReplaceFuncStop(const string &str);
 void DealFunc(FuncList &funclist);
 
 
