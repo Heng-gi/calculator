@@ -14,7 +14,7 @@ typedef struct {
     int len;
 }VarList;
 
-double EvaluateExpression(const string &line);
+double EvaluateExpression(string line);
 string ReplaceVariable(string line, VarList &varlist);
 void DealExpression();
 
