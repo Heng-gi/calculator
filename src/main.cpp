@@ -3,6 +3,10 @@
 #include "../include/linklist.h"
 #include "../include/expression.h"
 #include "../include/func.h"
+#include "../include/extreme_point.h"
+#include "../include/linear_equation.h"
+#include "../include/non_linear_equation.h"
+#include "../include/matrix.h"
 #include <cstdio>
 #include <cstdlib>
 
@@ -13,7 +17,8 @@ int main() {
     int isSqListInit = 0, isVecAInit = 0, isVecBInit = 0;
     int isPolySqAInit = 0, isPolySqBInit = 0;
     int isPolyLinkAInit = 0, isPolyLinkBInit = 0;
-
+    Matrix matrixA, matrixB;
+    int isMatrixAInit = 0, isMatrixBInit = 0;     
     FuncList funclist;
     InitFuncList(funclist);
 
@@ -311,6 +316,179 @@ int main() {
                 DealFunc(funclist);
             }
 
+            case 7: { // 极值点计算
+                int op;
+                do {
+                    printExtremePointMenu();
+                    if (scanf("%d", &op) != 1) { op = 0; break; }
+                    switch (op) {
+                        case 1:
+                            getchar(); // 清除缓冲区
+                            DealExtremePoint();
+                            break;
+                        case 0:
+                            printf("返回主菜单\n");
+                            break;
+                        default:
+                            printf("无效操作，请重新选择\n");
+                    }
+                } while (op != 0);
+                break;
+            }
+
+            case 8: { // 线性方程组求解
+                int op;
+                do {
+                    printLinearEquationMenu();
+                    if (scanf("%d", &op) != 1) { op = 0; break; }
+                    switch (op) {
+                        case 1:
+                            getchar(); // 清除缓冲区
+                            DealLinearEquation();
+                            break;
+                        case 0:
+                            printf("返回主菜单\n");
+                            break;
+                        default:
+                            printf("无效操作，请重新选择\n");
+                    }
+                } while (op != 0);
+                break;
+            }
+
+            case 9: { // 非线性方程组求解
+                int op;
+                do {
+                    printNonLinearEquationMenu();
+                    if (scanf("%d", &op) != 1) { op = 0; break; }
+                    switch (op) {
+                        case 1:
+                            getchar(); // 清除缓冲区
+                            DealNonLinearEquation();
+                            break;
+                        case 0:
+                            printf("返回主菜单\n");
+                            break;
+                        default:
+                            printf("无效操作，请重新选择\n");
+                    }
+                } while (op != 0);
+                break;
+            }
+            
+            case 10: {
+                int op;
+                do {
+                    printMatrixMenu();
+                    if (scanf("%d", &op) != 1) { op = 0; break; }
+                    try {  // 使用try-catch捕获矩阵运算中的异常
+                        switch (op) {
+                            case 1:
+                                createMatrix(matrixA);
+                                isMatrixAInit = 1;
+                                break;
+                            case 2:
+                                createMatrix(matrixB);
+                                isMatrixBInit = 1;
+                                break;
+                            case 3:  // 矩阵加法
+                                if (!isMatrixAInit || !isMatrixBInit) {
+                                    printf("矩阵A或B未初始化\n");
+                                    break;
+                                }
+                                matrixA = matrixA + matrixB;
+                                printf("加法结果: \n");
+                                matrixA.print();
+                                isMatrixBInit = 0;  // 清空B，避免重复使用
+                                break;
+                            case 4:  // 矩阵减法
+                                if (!isMatrixAInit || !isMatrixBInit) {
+                                    printf("矩阵A或B未初始化\n");
+                                    break;
+                                }
+                                matrixA = matrixA - matrixB;
+                                printf("减法结果: \n");
+                                matrixA.print();
+                                isMatrixBInit = 0;
+                                break;
+                            case 5:  // 矩阵乘法
+                                if (!isMatrixAInit || !isMatrixBInit) {
+                                    printf("矩阵A或B未初始化\n");
+                                    break;
+                                }
+                                matrixA = matrixA * matrixB;
+                                printf("乘法结果: \n");
+                                matrixA.print();
+                                isMatrixBInit = 0;
+                                break;
+                            case 6:  // 矩阵转置
+                                if (!isMatrixAInit) {
+                                    printf("矩阵A未初始化\n");
+                                    break;
+                                }
+                                matrixA = matrixA.transpose();
+                                printf("转置结果: \n");
+                                matrixA.print();
+                                break;
+                            case 7:  // 行列式
+                                if (!isMatrixAInit) {
+                                    printf("矩阵A未初始化\n");
+                                    break;
+                                }
+                                printf("行列式值: %.6lf\n", matrixA.determinant());
+                                break;
+                            case 8:  // 逆矩阵
+                                if (!isMatrixAInit) {
+                                    printf("矩阵A未初始化\n");
+                                    break;
+                                }
+                                matrixA = matrixA.inverse();
+                                printf("逆矩阵: \n");
+                                matrixA.print();
+                                break;
+                            case 9:  // 特征值
+                                if (!isMatrixAInit) {
+                                    printf("矩阵A未初始化\n");
+                                    break;
+                                }
+                                {
+                                    vector<double> eigvals = matrixA.eig();
+                                    printf("特征值: ");
+                                    for (double val : eigvals) {
+                                        printf("%.6lf ", val);
+                                    }
+                                    printf("\n");
+                                }
+                                break;
+                            case 10:  // 显示矩阵A
+                                if (!isMatrixAInit) {
+                                    printf("矩阵A未初始化\n");
+                                    break;
+                                }
+                                printf("矩阵A: \n");
+                                matrixA.print();
+                                break;
+                            case 11:  // 显示矩阵B
+                                if (!isMatrixBInit) {
+                                    printf("矩阵B未初始化\n");
+                                    break;
+                                }
+                                printf("矩阵B: \n");
+                                matrixB.print();
+                                break;
+                            case 0:
+                                printf("返回主菜单\n");
+                                break;
+                            default:
+                                printf("无效操作，请重新选择\n");
+                        }
+                    } catch (const invalid_argument &e) {
+                        printf("操作失败: %s\n", e.what());
+                    }
+                } while (op != 0);
+                break;
+            }
+                  
             case 0:
                 printf("感谢使用，再见！\n");
                 if (isSqListInit) Destroylist_sq(sqList);

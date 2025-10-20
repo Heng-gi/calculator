@@ -167,6 +167,48 @@ CMakeFiles/calculator.dir/src/func.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/calculator.dir/src/func.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CS/Data-Structure/calculator/src/func.cpp -o CMakeFiles/calculator.dir/src/func.cpp.s
 
+CMakeFiles/calculator.dir/src/extreme_point.cpp.o: CMakeFiles/calculator.dir/flags.make
+CMakeFiles/calculator.dir/src/extreme_point.cpp.o: /mnt/d/CS/Data-Structure/calculator/src/extreme_point.cpp
+CMakeFiles/calculator.dir/src/extreme_point.cpp.o: CMakeFiles/calculator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/d/CS/Data-Structure/calculator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/calculator.dir/src/extreme_point.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/calculator.dir/src/extreme_point.cpp.o -MF CMakeFiles/calculator.dir/src/extreme_point.cpp.o.d -o CMakeFiles/calculator.dir/src/extreme_point.cpp.o -c /mnt/d/CS/Data-Structure/calculator/src/extreme_point.cpp
+
+CMakeFiles/calculator.dir/src/extreme_point.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/calculator.dir/src/extreme_point.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CS/Data-Structure/calculator/src/extreme_point.cpp > CMakeFiles/calculator.dir/src/extreme_point.cpp.i
+
+CMakeFiles/calculator.dir/src/extreme_point.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/calculator.dir/src/extreme_point.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CS/Data-Structure/calculator/src/extreme_point.cpp -o CMakeFiles/calculator.dir/src/extreme_point.cpp.s
+
+CMakeFiles/calculator.dir/src/linear_equation.cpp.o: CMakeFiles/calculator.dir/flags.make
+CMakeFiles/calculator.dir/src/linear_equation.cpp.o: /mnt/d/CS/Data-Structure/calculator/src/linear_equation.cpp
+CMakeFiles/calculator.dir/src/linear_equation.cpp.o: CMakeFiles/calculator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/d/CS/Data-Structure/calculator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/calculator.dir/src/linear_equation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/calculator.dir/src/linear_equation.cpp.o -MF CMakeFiles/calculator.dir/src/linear_equation.cpp.o.d -o CMakeFiles/calculator.dir/src/linear_equation.cpp.o -c /mnt/d/CS/Data-Structure/calculator/src/linear_equation.cpp
+
+CMakeFiles/calculator.dir/src/linear_equation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/calculator.dir/src/linear_equation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CS/Data-Structure/calculator/src/linear_equation.cpp > CMakeFiles/calculator.dir/src/linear_equation.cpp.i
+
+CMakeFiles/calculator.dir/src/linear_equation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/calculator.dir/src/linear_equation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CS/Data-Structure/calculator/src/linear_equation.cpp -o CMakeFiles/calculator.dir/src/linear_equation.cpp.s
+
+CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o: CMakeFiles/calculator.dir/flags.make
+CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o: /mnt/d/CS/Data-Structure/calculator/src/non_linear_equation.cpp
+CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o: CMakeFiles/calculator.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/d/CS/Data-Structure/calculator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o -MF CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o.d -o CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o -c /mnt/d/CS/Data-Structure/calculator/src/non_linear_equation.cpp
+
+CMakeFiles/calculator.dir/src/non_linear_equation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/calculator.dir/src/non_linear_equation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/d/CS/Data-Structure/calculator/src/non_linear_equation.cpp > CMakeFiles/calculator.dir/src/non_linear_equation.cpp.i
+
+CMakeFiles/calculator.dir/src/non_linear_equation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/calculator.dir/src/non_linear_equation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/d/CS/Data-Structure/calculator/src/non_linear_equation.cpp -o CMakeFiles/calculator.dir/src/non_linear_equation.cpp.s
+
 # Object files for target calculator
 calculator_OBJECTS = \
 "CMakeFiles/calculator.dir/src/main.cpp.o" \
@@ -175,7 +217,10 @@ calculator_OBJECTS = \
 "CMakeFiles/calculator.dir/src/expression.cpp.o" \
 "CMakeFiles/calculator.dir/src/menu.cpp.o" \
 "CMakeFiles/calculator.dir/src/utils.cpp.o" \
-"CMakeFiles/calculator.dir/src/func.cpp.o"
+"CMakeFiles/calculator.dir/src/func.cpp.o" \
+"CMakeFiles/calculator.dir/src/extreme_point.cpp.o" \
+"CMakeFiles/calculator.dir/src/linear_equation.cpp.o" \
+"CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o"
 
 # External object files for target calculator
 calculator_EXTERNAL_OBJECTS =
@@ -187,9 +232,12 @@ calculator: CMakeFiles/calculator.dir/src/expression.cpp.o
 calculator: CMakeFiles/calculator.dir/src/menu.cpp.o
 calculator: CMakeFiles/calculator.dir/src/utils.cpp.o
 calculator: CMakeFiles/calculator.dir/src/func.cpp.o
+calculator: CMakeFiles/calculator.dir/src/extreme_point.cpp.o
+calculator: CMakeFiles/calculator.dir/src/linear_equation.cpp.o
+calculator: CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o
 calculator: CMakeFiles/calculator.dir/build.make
 calculator: CMakeFiles/calculator.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/d/CS/Data-Structure/calculator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable calculator"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/d/CS/Data-Structure/calculator/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable calculator"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/calculator.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

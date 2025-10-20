@@ -12,6 +12,10 @@ void printMainMenu() {
     printf("4. 多项式计算（链表）\n");
     printf("5. 四则运算表达式求值\n");
     printf("6. 函数定义与运行\n");
+    printf("7. 极值点计算\n");       
+    printf("8. 线性方程组求解\n");   
+    printf("9. 非线性方程组求解\n");
+    printf("10. 矩阵计算\n");
     printf("0. 退出程序\n");
     printf("========================\n");
     printf("请选择功能: ");
@@ -77,6 +81,76 @@ void printLinkPolyMenu() {
     printf("0. 返回主菜单\n");
     printf("==========================\n");
     printf("请选择操作: ");
+}
+
+// 极值点计算菜单
+void printExtremePointMenu() {
+    printf("\n===== 极值点计算 =====\n");
+    printf("1. 输入函数和初始值计算极值点\n");
+    printf("0. 返回主菜单\n");
+    printf("======================\n");
+    printf("请选择操作: ");
+}
+
+// 线性方程组求解菜单
+void printLinearEquationMenu() {
+    printf("\n===== 线性方程组求解 =====\n");
+    printf("1. 输入线性方程组并求解（每行一个方程，空行结束）\n");
+    printf("0. 返回主菜单\n");
+    printf("==========================\n");
+    printf("请选择操作: ");
+}
+
+// 非线性方程组求解菜单
+void printNonLinearEquationMenu() {
+    printf("\n===== 非线性方程组求解 =====\n");
+    printf("1. 输入非线性方程组并求解（每行一个方程，空行结束）\n");
+    printf("0. 返回主菜单\n");
+    printf("============================\n");
+    printf("请选择操作: ");
+}
+
+// 矩阵操作菜单
+void printMatrixMenu() {
+    printf("\n===== 矩阵计算 =====\n");
+    printf("1. 创建矩阵A\n");
+    printf("2. 创建矩阵B\n");
+    printf("3. 矩阵A + 矩阵B\n");
+    printf("4. 矩阵A - 矩阵B\n");
+    printf("5. 矩阵A * 矩阵B\n");
+    printf("6. 矩阵A转置\n");
+    printf("7. 计算矩阵A的行列式\n");
+    printf("8. 求矩阵A的逆矩阵\n");
+    printf("9. 计算矩阵A的特征值\n");
+    printf("10. 显示矩阵A\n");
+    printf("11. 显示矩阵B\n");
+    printf("0. 返回主菜单\n");
+    printf("====================\n");
+    printf("请选择操作: ");
+}
+
+// 创建矩阵
+void createMatrix(Matrix &matrix) {
+    int rows, cols;
+    printf("请输入矩阵的行数和列数: ");
+    if (scanf("%d%d", &rows, &cols) != 2 || rows <= 0 || cols <= 0) {
+        printf("输入错误，行数和列数必须为正整数\n");
+        return;
+    }
+    
+    vector<vector<double>> data(rows, vector<double>(cols));
+    printf("请按行输入%d行%d列矩阵元素（空格分隔）: \n", rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (scanf("%lf", &data[i][j]) != 1) {
+                printf("元素输入错误\n");
+                return;
+            }
+        }
+    }
+    
+    matrix = Matrix(data);
+    printf("矩阵创建成功\n");
 }
 
 void createTestSqList(Sqlist &L) {

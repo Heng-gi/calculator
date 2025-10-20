@@ -61,7 +61,8 @@ static double Operate(double a, char theta, double b) {
     return 0.0;
 }
 
-double EvaluateExpression(const string &line){
+double EvaluateExpression(string line){
+    if(line.back()!='#') line.push_back('#');
     SqStack<char> OPTR;
     OPTR.Init();
     OPTR.Push('#');
@@ -112,7 +113,6 @@ double EvaluateExpression(const string &line){
         else break;
     }
     double result=OPND.GetTop();
-    cout<<"运算结果为："<<result<<endl;
     return result;
 }
 
@@ -174,7 +174,8 @@ void DealExpression() {
     line+='#';
     string replaced=line;
     replaced=ReplaceVariable(replaced, varlist);
-    EvaluateExpression(replaced);
+    double result=EvaluateExpression(replaced);
+    cout<<"运算结果为："<<result<<endl;
     while(1){
         cout << "是否要继续改变变量的值？y/n:" << endl;
         char continue_express;
@@ -186,7 +187,8 @@ void DealExpression() {
                 cin>>varlist.item[i].val;
             }
             replaced=ReplaceVariable(replaced, varlist);
-            EvaluateExpression(replaced);
+            double result=EvaluateExpression(replaced);
+            cout<<"运算结果为："<<result<<endl;
         }
         else{
             cout << "已退出该表达式的求值" << endl;

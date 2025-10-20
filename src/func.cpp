@@ -315,7 +315,8 @@ void DealFunc(FuncList &funclist){
                 }
             }
             if(undefined_var) continue;
-            EvaluateExpression(split_result[1]);
+            double result=EvaluateExpression(split_result[1]);
+            cout<<"运算结果为："<<result<<endl;
         }
     }
 }

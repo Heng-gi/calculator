@@ -14,4 +14,7 @@ add_executable(calculator
     src/menu.cpp
     src/utils.cpp
     src/func.cpp
+    src/extreme_point.cpp
+    src/linear_equation.cpp
+    src/non_linear_equation.cpp
 )

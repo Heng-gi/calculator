@@ -153,6 +153,30 @@ src/expression.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/expression.cpp.s
 .PHONY : src/expression.cpp.s
 
+src/extreme_point.o: src/extreme_point.cpp.o
+.PHONY : src/extreme_point.o
+
+# target to build an object file
+src/extreme_point.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/extreme_point.cpp.o
+.PHONY : src/extreme_point.cpp.o
+
+src/extreme_point.i: src/extreme_point.cpp.i
+.PHONY : src/extreme_point.i
+
+# target to preprocess a source file
+src/extreme_point.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/extreme_point.cpp.i
+.PHONY : src/extreme_point.cpp.i
+
+src/extreme_point.s: src/extreme_point.cpp.s
+.PHONY : src/extreme_point.s
+
+# target to generate assembly for a file
+src/extreme_point.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/extreme_point.cpp.s
+.PHONY : src/extreme_point.cpp.s
+
 src/func.o: src/func.cpp.o
 .PHONY : src/func.o
 
@@ -176,6 +200,30 @@ src/func.s: src/func.cpp.s
 src/func.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/func.cpp.s
 .PHONY : src/func.cpp.s
+
+src/linear_equation.o: src/linear_equation.cpp.o
+.PHONY : src/linear_equation.o
+
+# target to build an object file
+src/linear_equation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/linear_equation.cpp.o
+.PHONY : src/linear_equation.cpp.o
+
+src/linear_equation.i: src/linear_equation.cpp.i
+.PHONY : src/linear_equation.i
+
+# target to preprocess a source file
+src/linear_equation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/linear_equation.cpp.i
+.PHONY : src/linear_equation.cpp.i
+
+src/linear_equation.s: src/linear_equation.cpp.s
+.PHONY : src/linear_equation.s
+
+# target to generate assembly for a file
+src/linear_equation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/linear_equation.cpp.s
+.PHONY : src/linear_equation.cpp.s
 
 src/linklist.o: src/linklist.cpp.o
 .PHONY : src/linklist.o
@@ -249,6 +297,30 @@ src/menu.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/menu.cpp.s
 .PHONY : src/menu.cpp.s
 
+src/non_linear_equation.o: src/non_linear_equation.cpp.o
+.PHONY : src/non_linear_equation.o
+
+# target to build an object file
+src/non_linear_equation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/non_linear_equation.cpp.o
+.PHONY : src/non_linear_equation.cpp.o
+
+src/non_linear_equation.i: src/non_linear_equation.cpp.i
+.PHONY : src/non_linear_equation.i
+
+# target to preprocess a source file
+src/non_linear_equation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/non_linear_equation.cpp.i
+.PHONY : src/non_linear_equation.cpp.i
+
+src/non_linear_equation.s: src/non_linear_equation.cpp.s
+.PHONY : src/non_linear_equation.s
+
+# target to generate assembly for a file
+src/non_linear_equation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/calculator.dir/build.make CMakeFiles/calculator.dir/src/non_linear_equation.cpp.s
+.PHONY : src/non_linear_equation.cpp.s
+
 src/sqlist.o: src/sqlist.cpp.o
 .PHONY : src/sqlist.o
 
@@ -309,9 +381,15 @@ help:
 	@echo "... src/expression.o"
 	@echo "... src/expression.i"
 	@echo "... src/expression.s"
+	@echo "... src/extreme_point.o"
+	@echo "... src/extreme_point.i"
+	@echo "... src/extreme_point.s"
 	@echo "... src/func.o"
 	@echo "... src/func.i"
 	@echo "... src/func.s"
+	@echo "... src/linear_equation.o"
+	@echo "... src/linear_equation.i"
+	@echo "... src/linear_equation.s"
 	@echo "... src/linklist.o"
 	@echo "... src/linklist.i"
 	@echo "... src/linklist.s"
@@ -321,6 +399,9 @@ help:
 	@echo "... src/menu.o"
 	@echo "... src/menu.i"
 	@echo "... src/menu.s"
+	@echo "... src/non_linear_equation.o"
+	@echo "... src/non_linear_equation.i"
+	@echo "... src/non_linear_equation.s"
 	@echo "... src/sqlist.o"
 	@echo "... src/sqlist.i"
 	@echo "... src/sqlist.s"
