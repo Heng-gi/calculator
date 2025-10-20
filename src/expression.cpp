@@ -80,9 +80,16 @@ double EvaluateExpression(string line){
                 continue;
             }
             possibleminus=false;
-            if(isdigit(c) || c=='.' || ((c=='e' || c=='E') && (!currentnumber.empty()))){
+            if(isdigit(c) || c=='.'){
                 currentnumber+=c;
                 continue;
+            }
+            else if(((c=='e' || c=='E') && (!currentnumber.empty()))){
+                currentnumber+=c;
+                if(i+1<line.size() && (line[i+1]=='(' || line[i+1]=='-')){
+                    currentnumber+=line[i+1];
+                    i++;
+                }
             }
             else{
                 if(!currentnumber.empty()){
