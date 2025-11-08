@@ -9,6 +9,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <unordered_set>
 using namespace std;
 
 //初始化操作，约定第0个索引为空串（便于插入第一个func）
@@ -98,7 +99,14 @@ Status SplitLine(const string &line, vector <string> &result){
     string temp;
     result.push_back(SplitTwo(line, temp, ' '));
     string instruct=ToLower(result[0]);
-    if(instruct=="exit"||instruct=="clear"||instruct=="list"){
+    if(instruct=="exit"||instruct=="clear"||instruct=="list"||instruct=="exit;"||instruct=="clear;"||instruct=="list;"){
+        return -1;
+    }
+    if(instruct=="show"){
+        if(temp.back()==';'){
+            temp.pop_back();
+        }
+        result.push_back(temp);
         return -1;
     }
     if(instruct=="run"){
@@ -267,6 +275,8 @@ Status ReplaceFuncStop(const string &str){
 }
 
 void DealFunc(FuncList &funclist){
+    CTree FuncTree;
+    unordered_set<int> undefinedfunc;
     while(1){
         string line;
         getline(cin, line);
@@ -274,15 +284,26 @@ void DealFunc(FuncList &funclist){
         int instruct=SplitLine(line, split_result);
         if(instruct<0){  
             string keywords=ToLower(split_result[0]);
-            if(keywords=="clear"){
+            if(keywords=="clear"||keywords=="clear;"){
                 ClearFuncList(funclist);
             }
-            else if(keywords=="list"){
+            else if(keywords=="list"||keywords=="list;"){
                 printAllFunctions(funclist);
             }
-            else if(keywords=="exit"){
+            else if(keywords=="exit"||keywords=="exit;"){
                 cout<<"已退出函数编程模式"<<endl;
                 break;
+            }
+            else if(keywords=="show"){
+                int curloc=FindCTNodeLoc(FuncTree,split_result[1]);
+                unordered_set<int> visited;
+                bool cycle=CheckAbnormal(FuncTree,curloc,visited,undefinedfunc);
+                if(cycle){
+                    cout<<"发生了循环调用，无法显示调用关系树"<<endl;
+                }
+                else{
+                    CTNodePrint(FuncTree,split_result[1]);
+                }
             }
             else{
                 cout<<"命令错误，请重新输入"<<endl;
@@ -300,6 +321,7 @@ void DealFunc(FuncList &funclist){
             else{
                 InsertNewFunc(funclist, index, split_result[1], split_result[3], var);
             }
+            InsertCTnode(FuncTree,split_result[1],split_result[3],undefinedfunc);
         }
         else{
             vector <string> var;
@@ -319,4 +341,126 @@ void DealFunc(FuncList &funclist){
             cout<<"运算结果为："<<result<<endl;
         }
     }
+}
+
+int FindCTNodeLoc(CTree &FuncTree, string funcname){
+    for(int i=0;i<FuncTree.n;i++){
+        if(funcname==FuncTree.nodes[i].funcname){
+            return i;
+        }
+    }
+    return FuncTree.n;
+}
+
+void InsertCTnode(CTree &FuncTree, string funcname, string expression, unordered_set<int> &undefinedfunc){
+    vector<string> childname;
+    vector<int> childloc;
+    for(int i=0;i<expression.size();i++){
+        char c=expression[i];
+        string current;
+        if(isspace(c)) continue;
+        if ((c=='e'||c=='E') && i>0 && i<(expression.size()-1) && isdigit(expression[i-1]))
+            continue;
+        else if(isalpha(c)||c=='_'){
+            current+=c;
+            c=expression[++i];
+            while(isalpha(c)||isdigit(c)||c=='_'){
+                current+=c;
+                c=expression[++i];
+            }
+            if(c=='('){
+                childname.push_back(current);
+            }
+            current.clear();
+        }
+    }
+    int len=childname.size();
+    int curloc=FindCTNodeLoc(FuncTree,funcname);
+    if(curloc==FuncTree.n){
+        FuncTree.n++;
+        FuncTree.nodes[curloc].funcname=funcname;
+    }
+    for (string child : childname){
+        int curloc=FindCTNodeLoc(FuncTree,child);
+        if(curloc==FuncTree.n){
+            FuncTree.n++;
+            FuncTree.nodes[curloc].funcname=child;
+            FuncTree.nodes[curloc].lchildptr=-1;
+            FuncTree.nodes[curloc].rchildptr=-1;
+            undefinedfunc.insert(curloc);
+        }
+        childloc.push_back(curloc);
+    }
+    switch (len)
+    {
+        case 0:{
+            FuncTree.nodes[curloc].lchildptr=-1;
+            FuncTree.nodes[curloc].rchildptr=-1;
+            break;
+        }
+        case 1:{
+            FuncTree.nodes[curloc].lchildptr=childloc[0];
+            FuncTree.nodes[curloc].rchildptr=-1;
+            break;
+        }
+        case 2:{
+            FuncTree.nodes[curloc].lchildptr=childloc[0];
+            FuncTree.nodes[curloc].rchildptr=childloc[1];
+            break;
+        }
+        default:
+            break;
+    }    
+}
+
+int CTreeDepth(CTree &FuncTree,int curloc){
+    if(curloc==-1 || curloc==FuncTree.n) return 0;
+    return 1+std::max(CTreeDepth(FuncTree,FuncTree.nodes[curloc].lchildptr),CTreeDepth(FuncTree,FuncTree.nodes[curloc].lchildptr));
+
+}
+
+void CTNodePrint(CTree &FuncTree, string funcname){
+    int curloc=FindCTNodeLoc(FuncTree,funcname);
+    if(curloc==FuncTree.n) return;
+    int depth=CTreeDepth(FuncTree,curloc);
+    int cellWidth = 4; // 每个节点的最小打印宽度
+    queue<int> q;
+    q.push(curloc);
+
+    for (int level = 0; level < depth; ++level) {
+        int count = q.size();
+        int frontSpaces = (pow(2, depth - level - 1) - 1) * (cellWidth / 2);
+        int betweenSpaces = (pow(2, depth - level) - 1) * (cellWidth / 2);
+        cout << string(frontSpaces, ' ');
+
+        for (int i = 0; i < count; ++i) {
+            int node = q.front();
+            q.pop();
+            if (node!=-1) {
+                cout << setw(2) << FuncTree.nodes[node].funcname;
+                q.push(FuncTree.nodes[node].lchildptr);
+                q.push(FuncTree.nodes[node].rchildptr);
+            } else {
+                cout << "  ";
+                q.push(-1);
+                q.push(-1);
+            }
+            if (i != count - 1) cout << string(betweenSpaces, ' ');
+        }
+        cout << "\n";
+    }
+}
+
+//检测是否调用未定义函数或发生循环调用，若发生循环调用，则返回true
+bool CheckAbnormal(CTree &FuncTree, int curloc, unordered_set<int> visited, unordered_set<int> &undefinedfunc){
+    if(undefinedfunc.count(curloc)){
+        cout<<"函数"<<FuncTree.nodes[curloc].funcname<<"未定义"<<endl;
+    }
+    if(curloc==-1) return false;
+    if(visited.count(curloc)) return true;
+    visited.insert(curloc);
+    bool leftcycle=CheckAbnormal(FuncTree,FuncTree.nodes[curloc].lchildptr,visited,undefinedfunc);
+    bool rightcycle=CheckAbnormal(FuncTree,FuncTree.nodes[curloc].rchildptr,visited,undefinedfunc);
+    visited.erase(curloc);
+    return leftcycle||rightcycle;
 }

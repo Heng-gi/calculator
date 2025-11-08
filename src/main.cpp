@@ -308,12 +308,14 @@ int main() {
                 printf("支持以下指令：\n");
                 printf("  - 定义函数：DEF 函数名(参数)=表达式\n");
                 printf("  - 运行函数：RUN 函数名(参数值)\n");
+                printf("  - 查看调用关系树：SHOW 函数名\n");
                 printf("  - 查看函数：LIST\n");
                 printf("  - 清除函数：CLEAR\n");
                 printf("  - 退出模式：EXIT\n");
                 printf("========================\n");
                 printf("\n请输入指令: \n");
                 DealFunc(funclist);
+                break;
             }
 
             case 7: { // 极值点计算

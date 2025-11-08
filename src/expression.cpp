@@ -1,9 +1,12 @@
 #include "../include/expression.h"
 #include "../include/stack.h"
 #include "../include/utils.h"
+#include "../include/BiTree.h"
 #include <cctype>
 #include <cmath>
+#include <stack>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 //显示Operator间的优先级大小
@@ -86,7 +89,7 @@ double EvaluateExpression(string line){
             }
             else if(((c=='e' || c=='E') && (!currentnumber.empty()))){
                 currentnumber+=c;
-                if(i+1<line.size() && (line[i+1]=='(' || line[i+1]=='-')){
+                if(i+1<line.size() && line[i+1]=='-'){
                     currentnumber+=line[i+1];
                     i++;
                 }
@@ -166,42 +169,146 @@ string ReplaceVariable(string line, VarList &varlist){
     return str;
 }
 
+//给定参数line，返回后缀表达式
+vector<string> GetPostfix(string line){
+    if(line.back()!='#') line.push_back('#');
+    vector<string> Postfix;
+    SqStack<char> OPTR;
+    OPTR.Init();
+    OPTR.Push('#');
+    bool possibleminus=true;
+    bool is_var=false;
+    string current;
+    for(int i=0;i<line.size();i++){
+        char c=line[i];
+        if(c!='#' || OPTR.GetTop()!='#'){
+            if((c=='-' || c=='+') && possibleminus){
+                if(c=='-'){
+                    current+=c;
+                }
+                possibleminus=false;
+                continue;
+            }
+            possibleminus=false;
+            if(isdigit(c) || c=='.'){
+                current+=c;
+                continue;
+            }
+            else if((c=='e' || c=='E') && (!current.empty()) && !is_var){
+                current+=c;
+                if(i+1<line.size() && line[i+1]=='-'){
+                    current+=line[i+1];
+                    i++;
+                }
+            }
+            else if((isalpha(c)||c=='_') && (current.empty() || current=="-")){
+                is_var=true;
+                current+=c;
+                continue;
+            }
+            else if(is_var && (isalpha(c)||c=='_'||isdigit(c))){
+                current+=c;
+                continue;
+            }
+            else{
+                if(!current.empty()){
+                    Postfix.push_back(current);
+                    current.clear();
+                    is_var=false;
+                }
+                if(c=='(') possibleminus=true;
+                switch (Precede(OPTR.GetTop(),c)){
+                    case '<':
+                        OPTR.Push(c);
+                        break;
+                    case '=':
+                        char x;
+                        OPTR.Pop(x);
+                        break;
+                    case '>':
+                        char theta;
+                        OPTR.Pop(theta);
+                        string s;
+                        s+=theta;
+                        Postfix.push_back(s);
+                        i--;
+                        break;
+                }
+            }
+        }
+        else break;        
+    }
+    return Postfix;
+}
+
+BiTree<string>* PostfixToBiTree(vector<string> Postfix){
+    stack<BiTree<string>*> TreePointer;
+    for(int i=0;i<Postfix.size();i++){
+        if(Postfix[i]=="+" || Postfix[i]=="-" || Postfix[i]=="*" || Postfix[i]=="/" || Postfix[i]=="^"){
+            BiTree<string>* right=TreePointer.top();
+            TreePointer.pop();
+            BiTree<string>* left=TreePointer.top();
+            TreePointer.pop();
+            BiTree<string>* root = new BiTree<string>();
+            root->CreateNode(Postfix[i], left->GetRoot(), right->GetRoot());
+            TreePointer.push(root);
+        }
+        else{
+            BiTree<string>* tree = new BiTree<string>();
+            tree->CreateRoot(Postfix[i]);
+            TreePointer.push(tree);
+        }
+    }
+    BiTree<string>* Tree=TreePointer.top();
+    TreePointer.pop();
+    return Tree;
+}
 
 void DealExpression() {
     VarList varlist;
-    if(!(varlist.item=(VarElemType)malloc(10*sizeof(VarElem)))){
-        printf("内存分配失败\n");
-        return;
-    }
+    varlist.item=new VarElem[10];
     varlist.len=0;
-    cout << "请输入表达式，不要省略乘号:" << endl;
-    string line;
-    cin >> line;
-    if(!line.empty() && (line.back()==';')) line.pop_back();
-    line+='#';
-    string replaced=line;
-    replaced=ReplaceVariable(replaced, varlist);
-    double result=EvaluateExpression(replaced);
-    cout<<"运算结果为："<<result<<endl;
     while(1){
-        cout << "是否要继续改变变量的值？y/n:" << endl;
-        char continue_express;
-        cin >> continue_express;
-        replaced=line;
-        if(continue_express=='y'){
-            for(int i=0;i<varlist.len;i++){
-                cout<<"请输入变量"<<varlist.item[i].var<<"的修改值："<<endl;
-                cin>>varlist.item[i].val;
+        cout << "请输入表达式，不要省略乘号:" << endl;
+        string line;
+        while (cin.peek() == '\n') cin.get();
+        cin >> line;
+        if(!line.empty() && (line.back()==';')) line.pop_back();
+        line+='#';
+        vector<string> Postfix=GetPostfix(line);
+        BiTree<string>* Tree=PostfixToBiTree(Postfix);
+        Tree->LevelTraverse();
+        delete Tree;
+        string replaced=line;
+        replaced=ReplaceVariable(replaced, varlist);
+        double result=EvaluateExpression(replaced);
+        cout<<"运算结果为："<<result<<endl;
+        if(varlist.len){
+            while(1){
+                cout << "是否要继续改变变量的值？y/n:" << endl;
+                char continue_express;
+                cin >> continue_express;
+                replaced=line;
+                if(continue_express=='y'){
+                    for(int i=0;i<varlist.len;i++){
+                        cout<<"请输入变量"<<varlist.item[i].var<<"的修改值："<<endl;
+                        cin>>varlist.item[i].val;
+                    }
+                    replaced=ReplaceVariable(replaced, varlist);
+                    double result=EvaluateExpression(replaced);
+                    cout<<"运算结果为："<<result<<endl;
+                }
+                else{
+                    cout << "已退出该表达式的求值" << endl;
+                    break;
+                }
             }
-            replaced=ReplaceVariable(replaced, varlist);
-            double result=EvaluateExpression(replaced);
-            cout<<"运算结果为："<<result<<endl;
         }
-        else{
-            cout << "已退出该表达式的求值" << endl;
-            break;
-        }
+        cout << "是否继续输入新的表达式？y/n:" << endl;
+        char cont;
+        cin >> cont;
+        if (cont != 'y') break;       
     }
-    free(varlist.item);
+    delete[] varlist.item;
     varlist.len=0;
 }
