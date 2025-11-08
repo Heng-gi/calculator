@@ -8,10 +8,12 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <unordered_set>
 
 using namespace std;
 
 #define MaxFuncNum 100
+#define MAX_TREE_SIZE 100
 
 //函数索引项
 typedef struct FuncType{
@@ -24,6 +26,17 @@ typedef struct FuncList{
     FuncType *item;
     int len;
 }FuncList;
+
+typedef struct CTNode{
+    string funcname;
+    int lchildptr;
+    int rchildptr;
+}CTNode;
+
+typedef struct{
+    CTNode nodes[MAX_TREE_SIZE];
+    int n; //结点数
+}CTree;
 
 //初始化操作，约定第0个索引为空串（便于插入第一个func）
 Status InitFuncList(FuncList &funclist);
@@ -48,6 +61,11 @@ Status ReplaceFunc(string &expression, const vector <string> &var, const FuncLis
 void printAllFunctions(const FuncList &funclist);
 Status ReplaceFuncStop(const string &str);
 void DealFunc(FuncList &funclist);
+int FindCTNodeLoc(CTree &FuncTree, string funcname);
+void InsertCTnode(CTree &FuncTree, string funcname, string expression, unordered_set<int> &undefinedfunc);
+int CTreeDepth(CTree &FuncTree,int curloc);
+void CTNodePrint(CTree &FuncTree, string funcname);
+bool CheckAbnormal(CTree &FuncTree, int curloc, unordered_set<int> visited, unordered_set<int> &undefinedfunc);
 
 
 #endif
