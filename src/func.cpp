@@ -322,6 +322,8 @@ void DealFunc(FuncList &funclist){
                 InsertNewFunc(funclist, index, split_result[1], split_result[3], var);
             }
             InsertCTnode(FuncTree,split_result[1],split_result[3],undefinedfunc);
+            int curloc=FindCTNodeLoc(FuncTree,split_result[1]);
+            if(undefinedfunc.count(curloc)) undefinedfunc.erase(curloc);
         }
         else{
             vector <string> var;
